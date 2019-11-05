@@ -9,13 +9,11 @@
 
 <script>
 import List from '@/components/List.vue'
-import Button from '@/components/Button.vue'
 
 export default {
   name: 'home',
   components: {
-    List,
-    Button
+    List
   }
 }
 </script>
@@ -23,8 +21,4 @@ export default {
 <style lang="stylus">
 .Home
   padding 15px
-  &-Content
-    display flex
-    flex-direction column
-    align-items center
 </style>

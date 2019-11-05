@@ -1,6 +1,7 @@
 <template>
   <div class="List">
-    Содержимое
+    <NewTask/>
+    {{ this.$store.state.taskList }}
   </div>
 </template>
 
@@ -13,3 +14,16 @@
   border-radius 4px
   padding 5px
 </style>
+
+<script>
+import NewTask from '@/components/NewTask.vue'
+
+export default {
+  components: {
+    NewTask
+  },
+  mounted () {
+    this.$store.dispatch('getTaskList')
+  }
+}
+</script>
