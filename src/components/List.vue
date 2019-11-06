@@ -2,8 +2,8 @@
   <div class="List">
     <NewTask/>
     <div class="List-Item" v-for="(item, index) in listTasks" :key="index">
-      <p>{{ item.task }}</p>
-      <span class="List-Edit">.</span>
+      <input class="List-Input" :value=item.task type="text" disabled=true>
+      <span class="List-Edit" v-on:click='editElement(item.id)'>.</span>
       <span class="List-Delete" v-on:click='deleteElement(item.id)'></span>
     </div>
     <!-- <div class="List-ButtonBlock">
@@ -75,6 +75,10 @@
     justify-content space-between
   &-Button
     padding 5px
+  &-Input
+    border none
+    &:disabled
+      background-color transparent
 </style>
 
 <script>
@@ -97,6 +101,9 @@ export default {
     deleteElement (id) {
       console.log(id)
       db.collection('todolist').doc(id).delete()
+    },
+    editElement (id, event) {
+      this.$router.push({ name: `editTask`, params: { id: id } })
     }
   }
 }

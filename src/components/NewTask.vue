@@ -1,6 +1,6 @@
 <template>
   <div class="NewTask">
-    <input class="NewTask-Input" v-model='newTask' type="text">
+    <input class="NewTask-Input" v-model='newTask' type="text" placeholder="Введите задачу">
     <button class="NewTask-Button" v-on:click = 'addTask'>Добавить задачу</button>
   </div>
 </template>
