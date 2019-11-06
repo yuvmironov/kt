@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import { db } from '../assets/db'
+
 export default {
   data () {
     return {
@@ -15,10 +17,8 @@ export default {
   methods: {
     addTask () {
       if (this.newTask) {
-        let task = {
-          task: this.newTask
-        }
-        this.$store.commit('addTask', task)
+        let data = this.newTask
+        db.collection('todolist').add({ id: '', task: data })
         this.newTask = ''
       } else {
         alert('Введите задачу')

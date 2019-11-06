@@ -3,8 +3,9 @@
     {{ listTasks }}
     <NewTask/>
     <div class="List-Item" v-for="(item, index) in listTasks" :key="index">
+
       <p>{{ item.task }}</p>
-      <span class="List-Delete"></span>
+      <span class="List-Delete" v-on:click='deleteElement(item.id)'></span>
     </div>
     <!-- <div class="List-ButtonBlock">
       <button class="List-Button" :disabled="numberPage === 0" v-on:click="prevPage">Назад</button>
@@ -61,7 +62,7 @@
 
 <script>
 import NewTask from '@/components/NewTask.vue'
-import { db } from '../main'
+import { db } from '../assets/db'
 
 export default {
   components: {
@@ -72,9 +73,13 @@ export default {
       listTasks: []
     }
   },
-  firestore () {
-    return {
-      listTasks: db.collection('locations').orderBy('task')
+  firestore: {
+    listTasks: db.collection('todolist')
+  },
+  methods: {
+    deleteElement (id) {
+      console.log(id)
+      db.collection('todolist').doc(id).delete()
     }
   }
 }
