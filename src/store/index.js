@@ -10,6 +10,9 @@ export default new Vuex.Store({
   mutations: {
     setList (state, data) {
       state.taskList = data
+    },
+    deleteElement (state, element) {
+      state.taskList.splice(state.taskList.indexOf(element), 1)
     }
   },
   actions: {

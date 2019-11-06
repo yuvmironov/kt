@@ -3,7 +3,7 @@
     <NewTask/>
     <div class="List-Item" v-for="(item, index) in this.$store.state.taskList" :key="index">
       <p>{{ item.task }}</p>
-      <span class="List-Delete"></span>
+      <span class="List-Delete" v-on:click="dleeteListItem(item)"></span>
     </div>
   </div>
 </template>
@@ -60,6 +60,11 @@ export default {
   },
   components: {
     NewTask
+  },
+  methods: {
+    dleeteListItem (item) {
+      this.$store.commit('deleteElement', item)
+    }
   },
   mounted () {
     this.$store.dispatch('getTaskList')
