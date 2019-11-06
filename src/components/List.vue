@@ -1,10 +1,9 @@
 <template>
   <div class="List">
-    {{ listTasks }}
     <NewTask/>
     <div class="List-Item" v-for="(item, index) in listTasks" :key="index">
-
       <p>{{ item.task }}</p>
+      <span class="List-Edit">.</span>
       <span class="List-Delete" v-on:click='deleteElement(item.id)'></span>
     </div>
     <!-- <div class="List-ButtonBlock">
@@ -29,7 +28,10 @@
     margin 4px 0
     border 1px solid black
     border-radius 2px
+    position relative
     &:hover .List-Delete
+      opacity 1
+    &:hover .List-Edit
       opacity 1
   &-Delete
     position relative
@@ -53,6 +55,21 @@
       background-color black
       transform rotate(-45deg)
       top 7px
+  &-Edit
+    opacity 0
+    position absolute
+    top 0
+    right 40px
+    width 15px
+    height 15px
+    cursor pointer
+    &:after, &:before
+      position absolute
+      content '.'
+    &:after
+      left 5px
+    &:before
+      left 10px
   &-ButtonBlock
     display flex
     justify-content space-between
