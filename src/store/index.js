@@ -13,6 +13,9 @@ export default new Vuex.Store({
     },
     deleteElement (state, element) {
       state.taskList.splice(state.taskList.indexOf(element), 1)
+    },
+    addTask (state, element) {
+      state.taskList.unshift(element)
     }
   },
   actions: {
