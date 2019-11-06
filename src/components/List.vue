@@ -1,7 +1,10 @@
 <template>
   <div class="List">
     <NewTask/>
-    {{ this.$store.state.taskList }}
+    <div class="List-Item" v-for="(item, index) in this.$store.state.taskList" :key="index">
+      <p>{{ item.task }}</p>
+      <span class="List-Delete"></span>
+    </div>
   </div>
 </template>
 
@@ -13,12 +16,48 @@
   background-color #fff
   border-radius 4px
   padding 5px
+  &-Item
+    display flex
+    justify-content space-between
+    padding 4px
+    margin 4px 0
+    border 1px solid black
+    border-radius 2px
+    &:hover .List-Delete
+      opacity 1
+  &-Delete
+    position relative
+    width 15px
+    height 15px
+    opacity 0
+    cursor pointer
+    &:after
+      content ''
+      position absolute
+      width 15px
+      height 1px
+      background-color black
+      transform rotate(45deg)
+      top 7px
+    &:before
+      content ''
+      position absolute
+      width 15px
+      height 1px
+      background-color black
+      transform rotate(-45deg)
+      top 7px
 </style>
 
 <script>
 import NewTask from '@/components/NewTask.vue'
 
 export default {
+  data () {
+    return {
+      listTasks: []
+    }
+  },
   components: {
     NewTask
   },
