@@ -1,16 +1,16 @@
 <template>
   <div class="List">
     <NewTask/>
-    <div class="List-Item" v-for="(item, index) in listTasks" :key="index">
+    <div class="List-Item" v-for="(item, index) in paginatedData" :key="index">
       <input type="checkbox" :checked=item.resolve :disabled=item.resolve v-on:change='finishedTask(item.id)'>
       <p class="List-Task" :class="{ 'List-Task_Resolve': item.resolve }" >{{ item.task }}</p>
       <span class="List-Edit" v-on:click='editElement(item.id)'>.</span>
       <span class="List-Delete" v-on:click='deleteElement(item.id)'></span>
     </div>
-    <!-- <div class="List-ButtonBlock">
-      <button class="List-Button" :disabled="numberPage === 0" v-on:click="prevPage">Назад</button>
-      <button class="List-Button" :disabled="numberPage >= pageCount -1" v-on:click="nextPage">Вперед</button>
-    </div> -->
+    <div class="List-ButtonBlock">
+      <button class="List-Button" :disabled="namberPage === 0" v-on:click="prevPage">Назад</button>
+      <button class="List-Button" :disabled="namberPage >= pageCount -1" v-on:click="nextPage">Вперед</button>
+    </div>
   </div>
 </template>
 
@@ -89,9 +89,17 @@ export default {
   components: {
     NewTask
   },
+  props: {
+    size: {
+      type: Number,
+      required: false,
+      default: 10
+    }
+  },
   data () {
     return {
-      listTasks: []
+      listTasks: [],
+      namberPage: 0
     }
   },
   firestore: {
@@ -114,6 +122,26 @@ export default {
         .catch(e => {
           alert('Не удалось обновить задачу')
         })
+    },
+    nextPage () {
+      this.namberPage++
+    },
+    prevPage () {
+      this.namberPage--
+    }
+  },
+  computed: {
+    pageCount () {
+      let l, s
+      l = this.listTasks.length
+      s = this.size
+      return Math.ceil(l / s)
+    },
+    paginatedData () {
+      let start, end
+      start = this.namberPage * this.size
+      end = start + this.size
+      return this.listTasks.slice(start, end)
     }
   }
 }
