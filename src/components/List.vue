@@ -2,7 +2,8 @@
   <div class="List">
     <NewTask/>
     <div class="List-Item" v-for="(item, index) in listTasks" :key="index">
-      <input class="List-Input" :value=item.task type="text" disabled=true>
+      <input type="checkbox" :checked=item.resolve :disabled=item.resolve v-on:change='finishedTask(item.id)'>
+      <p class="List-Task" :class="{ 'List-Task_Resolve': item.resolve }" >{{ item.task }}</p>
       <span class="List-Edit" v-on:click='editElement(item.id)'>.</span>
       <span class="List-Delete" v-on:click='deleteElement(item.id)'></span>
     </div>
@@ -75,10 +76,9 @@
     justify-content space-between
   &-Button
     padding 5px
-  &-Input
-    border none
-    &:disabled
-      background-color transparent
+  &-Task
+    &_Resolve
+      text-decoration line-through
 </style>
 
 <script>
@@ -104,6 +104,17 @@ export default {
     },
     editElement (id, event) {
       this.$router.push({ name: `editTask`, params: { id: id } })
+    },
+    finishedTask (id) {
+      db.collection('todolist')
+        .doc(id)
+        .update({ resolve: true })
+        .then(() => {
+          alert('Задача выполнена')
+        })
+        .catch(e => {
+          alert('Не удалось обновить задачу')
+        })
     }
   }
 }

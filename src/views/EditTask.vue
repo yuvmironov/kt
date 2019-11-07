@@ -39,7 +39,7 @@ export default {
     saveTask () {
       db.collection('todolist')
         .doc(this.idTask)
-        .update({ id: this.idTask, task: this.task })
+        .update({ task: this.task })
         .then(() => {
           this.$router.push('/')
         })
