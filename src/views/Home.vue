@@ -2,7 +2,6 @@
   <div class="Home">
     <div class="Home-Content">
       <List/>
-      <Button/>
     </div>
   </div>
 </template>
