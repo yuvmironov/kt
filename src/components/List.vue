@@ -95,11 +95,10 @@ export default {
     }
   },
   firestore: {
-    listTasks: db.collection('todolist')
+    listTasks: db.collection('todolist').orderBy('time', 'desc')
   },
   methods: {
     deleteElement (id) {
-      console.log(id)
       db.collection('todolist').doc(id).delete()
     },
     editElement (id) {

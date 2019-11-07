@@ -18,7 +18,7 @@ export default {
     addTask () {
       if (this.newTask) {
         let data = this.newTask
-        db.collection('todolist').add({ id: '', task: data })
+        db.collection('todolist').add({ id: '', time: +new Date(), resolve: false, task: data })
         this.newTask = ''
       } else {
         alert('Введите задачу')
