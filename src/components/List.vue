@@ -102,7 +102,7 @@ export default {
       console.log(id)
       db.collection('todolist').doc(id).delete()
     },
-    editElement (id, event) {
+    editElement (id) {
       this.$router.push({ name: `editTask`, params: { id: id } })
     },
     finishedTask (id) {
